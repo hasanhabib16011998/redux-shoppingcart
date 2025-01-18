@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter,Route,Routes } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Cart from './components/Cart';
+import NotFound from './components/404NotFound';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/cart" element={<Cart/>}/>
+        <Route path="/not-found" element={<NotFound/>}/>
       </Routes>
       </BrowserRouter>
     </div>
