@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 // Define types for the product item and state
 interface Product {
@@ -22,23 +23,40 @@ const initialState: ProductsState = {
   status: null,
 };
 
+// Async thunk to fetch products
+export const productsFetch = createAsyncThunk('products/productsFetch', async () => {
+  const response = await axios.get('http://localhost:3000/products');
+  return response.data;
+});
+
 // Create the slice
 const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    // Define a reducer to add items (example)
-    addItem: (state, action: PayloadAction<Product>) => {
-      state.items.push(action.payload);
+    // Optional reducers for manual state updates (if necessary in the future)
+    // addItem: (state, action: PayloadAction<Product>) => {
+    //   state.items.push(action.payload);
+    // },
+    // setStatus: (state, action: PayloadAction<'loading' | 'succeeded' | 'failed' | null>) => {
+    //   state.status = action.payload;
+    // },
+  },
+  extraReducers: {
+    [productsFetch.pending]: (state) => {
+      state.status = 'loading';
     },
-    setStatus: (state, action: PayloadAction<'loading' | 'succeeded' | 'failed' | null>) => {
-      state.status = action.payload;
+    [productsFetch.fulfilled]: (state, action: PayloadAction<Product[]>) => {
+      state.status = 'succeeded';
+      state.items = action.payload;
+    },
+    [productsFetch.rejected]: (state) => {
+      state.status = 'failed';
     },
   },
 });
 
-// Export the actions
-export const { addItem, setStatus } = productSlice.actions;
+// Export the actions (if you need them)
 
 // Export the reducer to be used in the store
 export default productSlice.reducer;
