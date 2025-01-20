@@ -42,21 +42,20 @@ const productSlice = createSlice({
     //   state.status = action.payload;
     // },
   },
-  extraReducers: {
-    [productsFetch.pending]: (state) => {
-      state.status = 'loading';
-    },
-    [productsFetch.fulfilled]: (state, action: PayloadAction<Product[]>) => {
-      state.status = 'succeeded';
-      state.items = action.payload;
-    },
-    [productsFetch.rejected]: (state) => {
-      state.status = 'failed';
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(productsFetch.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(productsFetch.fulfilled, (state, action: PayloadAction<Product[]>) => {
+        state.status = 'succeeded';
+        state.items = action.payload;
+      })
+      .addCase(productsFetch.rejected, (state) => {
+        state.status = 'failed';
+      });
   },
 });
-
-// Export the actions (if you need them)
 
 // Export the reducer to be used in the store
 export default productSlice.reducer;

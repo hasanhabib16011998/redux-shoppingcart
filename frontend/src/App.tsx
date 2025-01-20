@@ -13,6 +13,7 @@ function App() {
   return (
     <>
     <div>
+
       <BrowserRouter>
       <NavBar/>
       <Routes>
@@ -28,4 +29,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
