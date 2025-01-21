@@ -1,8 +1,9 @@
 import React from 'react';
 import {productsAPI, useGetAllProductsQuery} from '../store/productAPI';
+import store from '../store/store'
 import { useNavigate } from "react-router-dom"; // Updated import
 import {useDispatch} from "react-redux";
-import { addToCart } from '../store/cartSlice';
+import { addToCart,getTotal } from '../store/cartSlice';
 
 const Home: React.FC = () => {
   const {data,error,isLoading} = useGetAllProductsQuery();
@@ -13,6 +14,7 @@ const Home: React.FC = () => {
     dispatch(addToCart(product));
     navigate("/cart");
   }
+  store.dispatch(getTotal());
 
   
   return (

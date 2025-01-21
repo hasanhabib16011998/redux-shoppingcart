@@ -1,10 +1,11 @@
 import React from 'react';
 import { FaShoppingBag } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 
 
 const NavBar: React.FC = () => {
+  const { cartTotalQuantity } = useSelector(state => state.cart)
   return (
     <nav className="nav-bar">
         <Link to='/'>
@@ -14,7 +15,7 @@ const NavBar: React.FC = () => {
         <div className='nav-bag'>
             <FaShoppingBag/>
             <span className='bag-quantity'>
-                <span>3</span>
+                <span>{cartTotalQuantity}</span>
             </span>
         </div>
         </Link>

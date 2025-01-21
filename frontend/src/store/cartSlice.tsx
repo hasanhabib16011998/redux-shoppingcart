@@ -56,15 +56,65 @@ const cartSlice = createSlice({
         localStorage.setItem("cartItems",JSON.stringify(state.cartItems))
     },
     removeFromCart(state, action: PayloadAction<CartItems>){
-        const nextCartItem = state.cartItems.filter(
+        const nextCartItems = state.cartItems.filter(
             cartItem => cartItem.id !== action.payload.id
         )
-        state.cartItems = nextCartItem;
+        state.cartItems = nextCartItems;
+        localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
+        toast.error(`${action.payload.name} removed from cart`,{
+          position:"bottom-left"
+        });
+    },
+    decreaseCart(state, action: PayloadAction<CartItems>){
+      const itemIndex = state.cartItems.findIndex(
+        cartItem => cartItem.id === action.payload.id
+      )
+
+      if(state.cartItems[itemIndex].quantity > 1){
+        state.cartItems[itemIndex].quantity -= 1;
+        toast.info(`${action.payload.name} decreased from cart`,{
+          position:"bottom-left"
+        });
+      }
+      else if(state.cartItems[itemIndex].quantity == 1){
+        const nextCartItems = state.cartItems.filter(
+          cartItem => cartItem.id !== action.payload.id
+        )
+        state.cartItems = nextCartItems;
+        toast.error(`${action.payload.name} removed from cart`,{
+          position:"bottom-left"
+        });
+      }
+
+      localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
+    },
+    clearCart(state){
+      state.cartItems = [];
+      toast.error('Cart is cleared.',{
+        position:"bottom-left"
+      });
+      localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
+    },
+    getTotal(state, action: PayloadAction<CartItems>){
+      const { total, cartQuantity } = state.cartItems.reduce((cartTotal,cartItem)=>{
+        const { price, quantity } = cartItem;
+        const itemTotal = price*quantity;
+
+        cartTotal.total += itemTotal;
+        cartTotal.cartQuantity += quantity;
+
+        return cartTotal;
+      },{
+        total:0,
+        cartQuantity:0
+      });
+      state.cartTotalAmount = total;
+      state.cartTotalQuantity = cartQuantity;
     }
   },
 });
 
 // Export actions and reducer
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, decreaseCart, clearCart,getTotal } = cartSlice.actions;
 
 export default cartSlice.reducer;
