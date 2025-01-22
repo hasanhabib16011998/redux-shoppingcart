@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import { products } from './data/products';
 require('dotenv').config();
 import register from './routes/register';
+import login from './routes/login';
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,7 +37,8 @@ app.get('/products', (req: Request, res: Response) => {
   res.json(products);
 });
 
-app.use("/api/register",register)
+app.use("/api/register",register);
+app.use("/api/login",login)
 
 // Start the Express server
 app.listen(PORT, () => {

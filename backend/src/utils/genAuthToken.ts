@@ -1,24 +1,13 @@
 import jwt from 'jsonwebtoken';
+import { IUser } from '../models/users';
 
-
-interface UserPayload {
-    _id: string;
-    name: string;
-    email: string;
-}
-
-const genAuthToken = (user: UserPayload): string =>{
-    const secretKey = process.env.JWT_SECRET;
-
-    const token = jwt.sign({
-        _id: user._id.toString(),
-        name:user.name,
-        email:user.email,
-    },
-    secretKey
-    );
-
-    return token;
-}
+const genAuthToken = (user: IUser): string => {
+  const token = jwt.sign(
+    { _id: user._id, name: user.name, email: user.email },
+    process.env.JWT_SECRET as string,
+    { expiresIn: '1h' }
+  );
+  return token;
+};
 
 export default genAuthToken;
