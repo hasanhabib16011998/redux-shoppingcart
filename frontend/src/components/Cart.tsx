@@ -7,7 +7,9 @@ import { removeFromCart, decreaseCart, addToCart, clearCart, getTotal } from '..
 const Cart: React.FC = () => {
 
   const cart = useSelector((state)=>state.cart);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
 
   useEffect(()=>{
     dispatch(getTotal());
@@ -85,7 +87,7 @@ const Cart: React.FC = () => {
                 </div>
 
                 <p>Taxes and shipping Calculated at checkout</p>
-                <button>Check Out</button>
+                {auth._id? <button>Check Out</button> : <button>Login to Check Out</button>}
                 <div className='start-shopping'>
                   <Link to="/">
                     <FaArrowLeftLong/>

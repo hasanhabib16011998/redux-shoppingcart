@@ -35,7 +35,8 @@ router.post('/', async (req: Request<{}, {}, LoginRequestBody>, res: Response): 
     }
     else{
         const token = genAuthToken(user)
-        res.send(token);
+        res.send({ token });
+
     }
 
 })

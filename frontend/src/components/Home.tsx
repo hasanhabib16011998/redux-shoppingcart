@@ -1,22 +1,28 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {productsAPI, useGetAllProductsQuery} from '../store/productAPI';
 import store from '../store/store'
 import { useNavigate } from "react-router-dom"; // Updated import
 import {useDispatch,useSelector} from "react-redux";
 import { addToCart,getTotal } from '../store/cartSlice';
+import { loadUser, logOutUser } from '../store/authSlice';
 
 const Home: React.FC = () => {
   const {data,error,isLoading} = useGetAllProductsQuery();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const auth = useSelector((state)=>state.auth);
-  console.log(auth);
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
     navigate("/cart");
   }
-  store.dispatch(getTotal());
+  useEffect(() => {
+    if (!auth.userLoaded) {
+      dispatch(loadUser(null)); 
+    }
+    dispatch(getTotal());
+  }, [dispatch, auth.userLoaded]);
+
 
   
   return (
