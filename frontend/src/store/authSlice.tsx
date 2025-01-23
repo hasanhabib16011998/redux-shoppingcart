@@ -46,12 +46,12 @@ const initialState: AuthState = {
 // Async thunk for user registration
 export const registeredUser = createAsyncThunk(
   "auth/registerUser",
-  async (values: RegisterUserValues, { rejectWithValue }) => {
+  async (user: RegisterUserValues, { rejectWithValue }) => {
     try {
       const response = await axios.post("http://localhost:3000/api/register", {
-        name: values.name,
-        email: values.email,
-        password: values.password,
+        name: user.name,
+        email: user.email,
+        password: user.password,
       });
 
       localStorage.setItem("token", response.data.token);
