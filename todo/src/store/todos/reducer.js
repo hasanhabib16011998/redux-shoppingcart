@@ -12,7 +12,11 @@ const reducer = (state = initialState,action) => {
         case ADDED:
             return [
                 ...state,
-                {id:nextToDoId(state)}
+                {
+                    id:nextToDoId(state),
+                    text:action.payload,
+                    completed:false
+                }
             ]
         case TOGGLED:
             return state.map(todo => {
