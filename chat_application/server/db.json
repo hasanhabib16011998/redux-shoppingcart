@@ -23,6 +23,18 @@
       "password": "$2a$10$K2dQqPTdVx/AUaLjtZkjne0Tt4W3FmBoWLZH2gUpNeKO6XlRLYpwW",
       "name": "Hasan",
       "id": 4
+    },
+    {
+      "email": "hasan@vertical-innovations.com",
+      "password": "$2a$10$TO/W7NcX3Kye98XnJzSDW.KrBw9Ibc2IFDf8CkNpTvu6ys6.SinWy",
+      "name": "Hasan",
+      "id": 5
+    },
+    {
+      "email": "habib@vertical-innovations.com",
+      "password": "$2a$10$qBDXWvL5Q61brVUsLEmGm.j0NHB/Gf7UG1lE35xxIAAV0rnj4modO",
+      "name": "Hasan",
+      "id": 6
     }
   ],
   "conversations": [
