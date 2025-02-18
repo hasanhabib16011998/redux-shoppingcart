@@ -35,6 +35,12 @@
       "password": "$2a$10$qBDXWvL5Q61brVUsLEmGm.j0NHB/Gf7UG1lE35xxIAAV0rnj4modO",
       "name": "Hasan",
       "id": 6
+    },
+    {
+      "email": "knittex795@gmail.com",
+      "password": "$2a$10$3W.HHWFNd4.Wt2j3oCOA7O.uN2fGQvhVWsQBtb3YGoBcoEYp8Ke/u",
+      "name": "Hasan",
+      "id": 7
     }
   ],
   "conversations": [

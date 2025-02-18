@@ -2,9 +2,9 @@ import React from 'react'
 import useAuth from '../../hooks/useAuth';
 import { Navigate } from 'react-router-dom';
 
-function PrivateRoute({children}) {
+function PublicRoute({children}) {
     const isloggedIn = useAuth();
-    return isloggedIn ? children : <Navigate to='/'/>
+    return !isloggedIn ? children : <Navigate to='/inbox'/>
 }
 
-export default PrivateRoute;
+export default PublicRoute;
